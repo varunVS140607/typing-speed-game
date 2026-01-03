@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Speed Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- START SCREEN -->
+  <div id="start-screen" class="screen active">
+    <h1>Typing Speed Test</h1>
+    <p>
+      Type the given sentence as fast and accurately as you can in 30 seconds.
+      Your Words Per Minute (WPM) and accuracy will be shown at the end.
+    </p>
+    <button id="start-btn">Start Test</button>
+  </div>
+
+  <!-- GAME (PLAYING) SCREEN -->
+  <div id="game-screen" class="screen">
+    <header class="top-bar">
+      <div>Time: <span id="time-left">30</span>s</div>
+      <div>WPM: <span id="wpm">0</span></div>
+      <div>Accuracy: <span id="accuracy">0</span>%</div>
+    </header>
+
+    <main>
+      <h2>Text to type</h2>
+      <p id="quote" class="quote"></p>
+
+      <textarea
+        id="input-area"
+        placeholder="Start typing here when timer begins..."
+      ></textarea>
+
+      <p id="status-text">Press <strong>Start Test</strong> to begin.</p>
+      <button id="cancel-btn">Cancel</button>
+    </main>
+  </div>
+
+  <!-- RESULT / GAME OVER SCREEN -->
+  <div id="result-screen" class="screen">
+    <h1>Test Finished</h1>
+    <p>Your time is up!</p>
+    <p>Final WPM: <span id="final-wpm">0</span></p>
+    <p>Final Accuracy: <span id="final-accuracy">0</span>%</p>
+    <p>Total characters typed: <span id="final-chars">0</span></p>
+    <button id="play-again-btn">Play Again</button>
+    <button id="home-btn">Home</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
