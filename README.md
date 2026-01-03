@@ -4,9 +4,9 @@
 - **Game Title:** Typing Speed Test
 - **Course:** AMET | Frontend Web Development Basics – Lab
 - **Team Members:**
-  - Darish Domma
+  - Varun VS
   - Sanjay U S
-  - Varun V S
+  - Harish Domma
 
 ## 2. Game Description & How to Play
 
@@ -67,5 +67,5 @@ The Typing Speed Test is a browser-based mini game where the player types random
 
 ## 5. GitHub Repository URL
 
-- GitHub Repository: `https://github.com/HarishDomma/Harish_149_speed_test`
+- GitHub Repository:
 
