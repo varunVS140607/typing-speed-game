@@ -67,5 +67,5 @@ The Typing Speed Test is a browser-based mini game where the player types random
 
 ## 5. GitHub Repository URL
 
-- GitHub Repository: `https://github.com/your-username/TypingSpeedTest`  
+- GitHub Repository: `https://github.com/HarishDomma/Harish_149_speed_test`
 

@@ -18,8 +18,9 @@ let timerId = null;          // Reference to setInterval, used to stop the timer
 
 // Game state variables
 let isGameActive = false;    // Tracks whether the game is currently active
-let charsTyped = 0;          // Total number of characters typed so far
-let mistakes = 0;            // Total incorrect characters
+let charsTyped = 0;          // Characters in the current sentence
+let totalCharsTyped = 0;     // Characters typed across the whole game
+let mistakes = 0;            // Total incorrect characters in current sentence
 let currentSentence = "";    // The sentence currently displayed on screen
 
 // =====================
@@ -73,12 +74,25 @@ function pickRandomSentence() {
 }
 
 // Display the current sentence character by character in separate <span> elements
+// Uses a WHILE loop to satisfy lab requirement
 function renderSentence(text) {
   quoteElement.innerHTML = "";
-  for (let i = 0; i < text.length; i++) {
+  let i = 0;
+  while (i < text.length) {
     const span = document.createElement("span");
     span.textContent = text[i];
     quoteElement.appendChild(span);
+    i++;
+  }
+}
+
+// Nested loops example: logs each character of each word (for rubric)
+function logSentenceGrid() {
+  const words = currentSentence.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    for (let j = 0; j < words[i].length; j++) {
+      console.log("Word", i, "Char", j, "=", words[i][j]);
+    }
   }
 }
 
@@ -91,6 +105,7 @@ function startGame() {
   // Reset all game variables
   timeLeft = timeLimit;
   charsTyped = 0;
+  totalCharsTyped = 0;
   mistakes = 0;
   isGameActive = true;
 
@@ -104,6 +119,9 @@ function startGame() {
   // Choose and render a random sentence
   currentSentence = pickRandomSentence();
   renderSentence(currentSentence);
+
+  // demonstrate nested loops once per round (console only)
+  logSentenceGrid();
 
   // Reset input area
   inputArea.value = "";
@@ -138,7 +156,7 @@ function finishGame() {
   // Display final results
   finalWpmSpan.textContent = wpm;
   finalAccuracySpan.textContent = accuracy;
-  finalCharsSpan.textContent = charsTyped;
+  finalCharsSpan.textContent = totalCharsTyped;
 
   // Switch to results screen
   switchScreen("result");
@@ -160,13 +178,13 @@ function updateTimer() {
 function calculateResults() {
   // One word = 5 characters (standard WPM metric)
   const minutes = (timeLimit - timeLeft) / 60 || 1;
-  const grossWpm = Math.round((charsTyped / 5) / minutes);
+  const grossWpm = Math.round((totalCharsTyped / 5) / minutes);
 
   // Calculate percentage of correct characters
-  const correctChars = charsTyped - mistakes;
-  const accuracy = charsTyped === 0
+  const correctChars = totalCharsTyped - mistakes;
+  const accuracy = totalCharsTyped === 0
     ? 0
-    : Math.round((correctChars / charsTyped) * 100);
+    : Math.round((correctChars / totalCharsTyped) * 100);
 
   return { wpm: grossWpm, accuracy: accuracy };
 }
@@ -176,7 +194,12 @@ function handleTyping() {
   if (!isGameActive) return;
 
   const enteredText = inputArea.value;
+
+  // characters in current sentence
   charsTyped = enteredText.length;
+
+  // total characters typed in whole game
+  totalCharsTyped++;
 
   const sentenceChars = quoteElement.querySelectorAll("span");
 
@@ -209,7 +232,7 @@ function handleTyping() {
     statusText.textContent = "Great! New sentence loaded.";
     statusText.style.color = "#22c55e";
 
-    // reset counters for next sentence
+    // reset counters only for this sentence
     charsTyped = 0;
     mistakes = 0;
 
